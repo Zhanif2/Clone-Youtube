@@ -3,10 +3,11 @@ import { Box } from '@mui/material';
 import { VideoCard, ChannelCard, Playlists } from './';
 
 const Videos = ({ videos }) => {
-  // Separate the data into videos, channels, and playlists
-  const filteredVideos = videos.filter(item => item.id.videoId);
-  const filteredChannels = videos.filter(item => item.id.channelId);
+  // Filter out only playlists
   const filteredPlaylists = videos.filter(item => item.id.playlistId);
+
+  // Include videos and channels together, exclude playlists
+  const filteredVideosAndChannels = videos.filter(item => item.id.videoId || item.id.channelId);
 
   return (
     <Box
@@ -18,30 +19,20 @@ const Videos = ({ videos }) => {
         py: 3,
       }}
     >
-      {filteredVideos.map((item, idx) => (
+      {filteredVideosAndChannels.map((item, idx) => (
         <Box
-          key={`video-${idx}`}
+          key={`item-${idx}`}
           sx={{
             width: { xs: '100%', sm: '48%', md: '30%' },
             display: 'flex',
             justifyContent: 'center',
           }}
         >
-          <VideoCard video={item} />
+          {item.id.videoId && <VideoCard video={item} />}
+          {item.id.channelId && <ChannelCard channelDetail={item} />}
         </Box>
       ))}
-      {filteredChannels.map((item, idx) => (
-        <Box
-          key={`channel-${idx}`}
-          sx={{
-            width: { xs: '100%', sm: '48%', md: '30%' },
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <ChannelCard channelDetail={item} />
-        </Box>
-      ))}
+
       {filteredPlaylists.map((item, idx) => (
         <Box
           key={`playlist-${idx}`}
