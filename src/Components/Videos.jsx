@@ -1,8 +1,13 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { VideoCard, ChannelCard } from './';
+import { VideoCard, ChannelCard, Playlists } from './';
 
 const Videos = ({ videos }) => {
+  // Separate the data into videos, channels, and playlists
+  const filteredVideos = videos.filter(item => item.id.videoId);
+  const filteredChannels = videos.filter(item => item.id.channelId);
+  const filteredPlaylists = videos.filter(item => item.id.playlistId);
+
   return (
     <Box
       sx={{
@@ -13,17 +18,40 @@ const Videos = ({ videos }) => {
         py: 3,
       }}
     >
-      {videos.map((item, idx) => (
+      {filteredVideos.map((item, idx) => (
         <Box
-          key={idx}
+          key={`video-${idx}`}
           sx={{
             width: { xs: '100%', sm: '48%', md: '30%' },
             display: 'flex',
             justifyContent: 'center',
           }}
         >
-          {item.id.videoId && <VideoCard video={item} />}
-          {item.id.channelId && <ChannelCard channelDetail={item} />}
+          <VideoCard video={item} />
+        </Box>
+      ))}
+      {filteredChannels.map((item, idx) => (
+        <Box
+          key={`channel-${idx}`}
+          sx={{
+            width: { xs: '100%', sm: '48%', md: '30%' },
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <ChannelCard channelDetail={item} />
+        </Box>
+      ))}
+      {filteredPlaylists.map((item, idx) => (
+        <Box
+          key={`playlist-${idx}`}
+          sx={{
+            width: { xs: '100%', sm: '48%', md: '30%' },
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Playlists playlistDetail={item} />
         </Box>
       ))}
     </Box>

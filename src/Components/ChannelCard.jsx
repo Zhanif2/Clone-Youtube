@@ -6,10 +6,6 @@ import { Link } from "react-router-dom";
 import { demoProfilePicture } from "../utils/constants";
 
 const ChannelCard = ({channelDetail}) => {
-  if (!channelDetail) {
-    console.error("Missing channel detail:", channelDetail);
-    return null;
-  }
   return (
     <Box
       sx={{
