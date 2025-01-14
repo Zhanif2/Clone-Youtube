@@ -9,7 +9,7 @@ const Videos = ({ videos, direction }) => {
   return (
     <Stack direction={direction || "row"} flexWrap="wrap" justifyContent="center" alignItems="start" gap={3}>
       {videos.map((item, idx) => (
-        <Box key={idx} sx={{ mb: 2, maxWidth: '320px', mx: 1 }}>
+        <Box key={idx} sx={{ mb: 2, maxWidth: '320px', mx: 1, width:'100%' }}>
 
           {item.id.videoId && <VideoCard video={item} /> }
           {item.id.channelId && <ChannelCard channelDetail={item} />}
